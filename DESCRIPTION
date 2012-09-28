@@ -1,0 +1,22 @@
+Package: Rcade
+Title: R-based analysis of ChIP-seq And Differential Expression - a
+       tool for integrating a count-based ChIP-seq analysis with
+       differential expression summary data.
+Version: 0.99.3
+Date: 2012-01-25
+Author: Jonathan Cairns
+Maintainer: Jonathan Cairns <jonathan.cairns@cancer.org.uk>
+Description: Rcade (which stands for "R-based analysis of ChIP-seq And 
+	     Differential Expression") is a tool for integrating
+	     ChIP-seq data with differential expression summary data,
+	     through a Bayesian framework. A key application is in
+	     identifing the genes targeted by a transcription factor
+	     of interest - that is, we collect genes that are
+	     associated with a ChIP-seq peak, and differential
+	     expression under some perturbation related to that TF.
+Depends: R (>= 2.14.0), methods, GenomicRanges, baySeq, Rsamtools
+Imports: graphics, IRanges, rgl
+Suggests: limma, biomaRt, RUnit, BiocGenerics
+License: GPL-2
+biocViews: DifferentialExpression, GeneExpression, Transcription,
+           ChIPseq, Sequencing, Genetics

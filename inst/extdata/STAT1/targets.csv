@@ -1,0 +1,5 @@
+"fileID","sampleID","factor","filepath"
+"Input1","Input1","Input","wgEncodeSydhTfbsHelas3InputIfng30StdAlnRep1.bam"
+"Input2","Input2","Input","wgEncodeSydhTfbsHelas3InputStdAlnRep1.bam"
+"ChIP1","ChIP1","Stat1","wgEncodeSydhTfbsHelas3Stat1Ifng30StdAlnRep1.bam"
+"ChIP2","ChIP2","Stat1","wgEncodeSydhTfbsHelas3Stat1Ifng30StdAlnRep2.bam"

@@ -1,0 +1,12 @@
+-Accessor for ChIPfileDir
+-Another output method that returns output in R
+-Document priors better
+-Full targets documentation in countReads
+(-Rewrite Rcade object in terms of environments)
+(-Update method for Rcade object)
+(-List of censored genes?)
+(-Vicinity plot method)
+(-Support for things that aren't BAM files)
+(-Does the index file make a difference to Rcade?)
+(-Clear all notes on R CMD check)
+(-Automate RNA-seq analysis)

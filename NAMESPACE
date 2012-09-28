@@ -1,0 +1,11 @@
+exportClasses(Rcade, RcadeTrack)
+exportMethods(plotMM, plotBBB, plotPCA, exportRcade, getDE, getChIP, getRcade, "getDE<-", "getChIP<-", "getRcade<-")
+
+##Analysis function
+export(RcadeAnalysis)
+
+##Analysis Modules
+export(defineBins, countReads, diffCountsBaySeq, constructRcadeTable)
+
+
+#importFrom(rgl, plot3d)

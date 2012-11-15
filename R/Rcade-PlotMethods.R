@@ -1,11 +1,17 @@
 ##Plot 1: MM plot
 ##TODO allow |logfc|
 setMethod("plotMM", c(x = "Rcade"),
-	function(x, xlab="DE Log Ratio", ylab="ChIP Log Ratio", pch=19, xlim=NULL, ylim=NULL, zlim=NULL, main="ChIP against Expression", col.scale=rainbow(10000), ...)
+	function(x, DE.abs, xlab="DE Log Ratio", ylab="ChIP Log Ratio", pch=19, xlim=NULL, ylim=NULL, zlim=NULL, main="ChIP against Expression", col.scale=rainbow(10000), ...)
 	{
+		DE <- x@Rcade$logfc.DE
+		if(DE.abs)
+		{
+			DE <- abs(DE)
+		}
+
 		if(is.null(xlim))
 		{
-			temp <- x@Rcade$logfc.DE[is.finite(x@Rcade$logfc.DE)]
+			temp <- DE[is.finite(DE)]
 			xlim <- range(temp)
 		}
 
@@ -26,7 +32,7 @@ setMethod("plotMM", c(x = "Rcade"),
 
 		#sel <- x@Rcade$M.ChIP > 0
 
-		plot(x@Rcade$logfc.DE, x@Rcade$M, xlab=xlab, ylab=ylab, pch=pch, col=col.scale[length(col.scale)*heights], xlim=xlim, ylim=ylim, main=main, ...)
+		plot(DE, x@Rcade$M, xlab=xlab, ylab=ylab, pch=pch, col=col.scale[length(col.scale)*heights], xlim=xlim, ylim=ylim, main=main, ...)
 	}
 )
 

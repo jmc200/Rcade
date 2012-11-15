@@ -2,7 +2,7 @@
 
 ##Plot 1: MM plot FIXME
 setGeneric("plotMM",
-	function(x, ...) standardGeneric("plotMM")
+	function(x, DE.abs=FALSE, ...) standardGeneric("plotMM")
 )
 
 ##Plot 2: 3D B-B-B plot FIXME

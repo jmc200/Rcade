@@ -15,6 +15,12 @@ defineBins <- function(anno, zone, geneID = "ensembl_gene_id", removeDuplicates=
 {
 	##interpret annotation (assume data frame for now? i.e. straight output of biomaRt)
 	anno <- as.data.frame(anno)
+
+	##FIXME check that geneID is OK
+	if(!geneID %in% colnames(anno))
+	{
+		stop("geneID not found in colnames(anno).")
+	}
 	
 	##find str, chr, start, end, geneID columns
 	##FIXME non-biomaRt input
@@ -62,9 +68,20 @@ defineBins <- function(anno, zone, geneID = "ensembl_gene_id", removeDuplicates=
 		strand = as(anno[,str], "Rle")
 	)
 
-	##append geneIDs
+	##get ready to transfer geneIDs
 	temp <- DataFrame(anno[,geneID])
 	colnames(temp) <- geneID
+
+	##get ready to transfer everything else FIXME test thoroughly
+	sel <- !colnames(anno) %in% c(chr,start,end,str,geneID)
+	if(any(sel))
+	{
+		temp2 <- DataFrame(anno[,sel])
+		colnames(temp2) <- colnames(anno)[sel]
+		temp <- cbind(temp, temp2)
+	}
+
+	##transfer
 	values(annoZones) <- temp
 
 	##output

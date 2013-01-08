@@ -78,7 +78,7 @@ defineBins <- function(anno, zone, geneID = "ensembl_gene_id", removeDuplicates=
 	{
 		temp2 <- DataFrame(anno[,sel])
 		colnames(temp2) <- colnames(anno)[sel]
-		temp <- cbind(temp, temp2)
+		temp <- DataFrame(temp, temp2)
 	}
 
 	##transfer

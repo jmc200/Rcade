@@ -204,7 +204,7 @@ cl <- NULL
 We now process the data with the \Rfunction{RcadeAnalysis()} function, obtaining an \Rpackage{Rcade} object:
 
 <<>>=
-Rcade <- RcadeAnalysis(DE, ChIPannoZones, ChIPtargets=targets, ChIPfileDir = dir,
+Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG", ChIPtargets=targets, ChIPfileDir = dir,
 	shift = 0, cl=cl, DElookup=DElookup)
 Rcade
 @

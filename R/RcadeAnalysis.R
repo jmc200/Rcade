@@ -6,7 +6,7 @@
 
 ##this is 1).
 
-RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName, ChIPtargets, ChIPfileDir, cl, DElookup, DE.prior = NULL, prior.mode="assumeIndependent", prior=NULL, ...)
+RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName="ensembl_gene_id", ChIPtargets, ChIPfileDir, cl, DElookup, DE.prior = NULL, prior.mode="assumeIndependent", prior=NULL, ...)
 {
 	##FIXME allow altering of e.g. getLibsizesArgs
 	##TODO ability to dump partial output upon error?
@@ -16,6 +16,10 @@ RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName, ChIPtargets, Ch
 	##FIXME before we do *anything*, check arguments are valid
 	##FIXME check that there is sufficient overlap between geneIDs to proceed
 	##ChIPannoZones/annoZoneGeneidName
+	if(!annoZoneGeneidName %in% colnames(values(ChIPannoZones)))
+	{
+		stop("annoZoneGeneidName is not a column of ChIPannoZones.")
+	}
 	##ChIPtargets
 	checkTargets(ChIPtargets)
 	##ChIPfileDir

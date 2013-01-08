@@ -24,7 +24,7 @@ RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName, ChIPtargets, ChIPfileDir, c
 		\item{\code{keepChIP}:}{The prior is factorized as form P(D,C)=P(D|C)P(C). P(C) is taken from the differential count algorithm used. User must specify the \code{prior} argument as c(P(D|C), P(D|not C)).}
 	}
 } %FIXME
-  \item{prior}{Currently ignored.} %The prior to be used. %FIXME
+  \item{prior}{See \code{prior.mode}.}
   \item{...}{Additional arguments.}
 }
 \details{
@@ -53,7 +53,7 @@ RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName, ChIPtargets, ChIPfileDir, c
 	colnames(anno) <- c("ENSG","chr","start","end","str")
 	ChIPannoZones <- defineBins(anno, zone=c(-1500, 1500), geneID="ENSG")
 
-	Rcade <- RcadeAnalysis(DE, ChIPannoZones, ChIPtargets=targets, ChIPfileDir = dir,
+	Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG", ChIPtargets=targets, ChIPfileDir = dir,
 	DElookup=DElookup)
 }
 

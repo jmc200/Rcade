@@ -28,7 +28,7 @@ outputWriteFunction <- function(x, directory, name, cutoffMode, cutoffArg, justG
 	##sort, if requested
 	if(!is.null(sort.by))
 	{
-		if(sort.by != "B.ChIP.DE") ##This cheat avoids sorting twice.
+		if(sort.by != "B.ChIP.DE") ##No need to sort. Already sorted by this value
 		{
 			x <- x[order(x[,sort.by], decreasing=TRUE),]
 		}
@@ -49,7 +49,7 @@ outputWriteFunction <- function(x, directory, name, cutoffMode, cutoffArg, justG
 	} else if(tolower(cutoffMode) == "b") {
 		x <- x[x[,sort.by] > cutoffArg,]
 	} else if(tolower(cutoffMode) == "fdr") {
-		sel <- minFDR(x, cutoffArg)
+		sel <- minFDR(expit(x[,sort.by]), cutoffArg)
 		x <- head(x, sel)
 	} else {
 		stop("cutoffMode argument must be 'all', 'top', 'B', or 'FDR'.")

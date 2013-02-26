@@ -21,7 +21,7 @@ test_countReads <- function() {
 	checkEquals(counts.ref, counts.cal)
 }
 
-##2) basically, if this goes wrong, RcadeSTAT1 object is out of date
+##2) check that annotation zones match between Rcade object and anno.csv
 
 test_RcadeSTAT1 <- function() {
 	data(RcadeSTAT1)
@@ -38,7 +38,7 @@ test_RcadeSTAT1 <- function() {
 	checkIdentical(annoZone.ref, annoZone.cal)
 }
 
-##3) must be able to recreate Rcade table from data
+##3) must be able to recreate Rcade table from individual components
 
 test_constructRcadeTable <- function() {
 	

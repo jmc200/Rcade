@@ -49,7 +49,7 @@ The ChIP-seq analysis element of \Rpackage{Rcade} is performed through methods f
 
 In some situations, it may be appropriate to define the binding site universe based on a set of peak-calls from other data sets. However, it is inappropriate to use peak-calls from the ChIP-seq data used in the \Rpackage{Rcade} analysis - such an analysis would be prone to confirmation bias.
 
-\Rpackage{Rcade} uses a fully Bayesian modelling approach. In particular, it uses log-odds values, or $B$-values, in both its input and output. The log-odds value is related to the posterior probability ($PP$) of an event, as per the formula $B = \frac{\log(PP)}{\log(1 - PP)}$. $PP$-values should not be confused with the frequentist concept of \emph{p}-values.
+\Rpackage{Rcade} uses a fully Bayesian modelling approach. In particular, it uses log-odds values, or $B$-values, in both its input and output. The log-odds value is related to the posterior probability ($PP$) of an event, as per the formula $B = \log\left(\frac{PP}{1 - PP}\right)$. $PP$-values should not be confused with the frequentist concept of \emph{p}-values.
 
 %FAQs? TODO
 
@@ -204,7 +204,8 @@ cl <- NULL
 We now process the data with the \Rfunction{RcadeAnalysis()} function, obtaining an \Rpackage{Rcade} object:
 
 <<>>=
-Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG", ChIPtargets=targets, ChIPfileDir = dir,
+Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG",
+	ChIPtargets=targets, ChIPfileDir = dir,
 	shift = 0, cl=cl, DElookup=DElookup)
 Rcade
 @

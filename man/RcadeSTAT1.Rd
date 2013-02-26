@@ -5,7 +5,7 @@
 Rcade object - STAT1 data
 }
 \description{
-The Rcade object generated in the vignette.
+The Rcade object generated in the vignette, \code{vignette("Rcade")}.
 }
 \usage{data(RcadeSTAT1)}
 \format{

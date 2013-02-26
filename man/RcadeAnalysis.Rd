@@ -17,7 +17,9 @@ RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName, ChIPtargets, ChIPfileDir, c
   %\item{ChIPshift}{\code{Integer} - Reads on the forward strand are moved to the right by this number of base pairs, and reads on the negative strand are moved to the left}
   \item{cl}{A \code{cluster} from \code{\link[parallel]{makeCluster}} in the parallel package.}
   \item{DElookup}{\code{list} - lookup table of form \code{list(RcadeField1 = DEcolumn1, RcadeField2 = DEcolumn2, ...)}. If you don't specify this argument, then Rcade will try to find the mandatory fields automatically but will not keep any of the other information in its output.}
-  \item{DE.prior}{\code{numeric} - Currently ignored.}%FIXME The prior probability of DE for each GeneID. Either a scalar, or a vector where the Nth element corresponds to the Nth row of the DE argument.
+  \item{DE.prior}{\code{numeric} - The prior probability of DE for each GeneID. Either a scalar, or a vector where the Nth element corresponds to the Nth row of the DE argument. Ignored if \code{prior.mode = "assumeIndependent"}.
+
+For example, if using DE analysis from the limma package (default settings), then set \code{DE.prior = 0.01}.}
   \item{prior.mode}{The method used to create prior probabilities in the Rcade table. Current options are:
 	\describe{
 		\item{\code{assumeIndependent}:}{Under the prior, ChIP counts and DE log ratios are assumed independent; that is, the prior is of form P(D,C)=P(D)P(C). No need to specify the \code{prior} argument.}

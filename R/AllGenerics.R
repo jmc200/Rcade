@@ -5,6 +5,11 @@ setGeneric("plotMM",
 	function(x, DE.abs=FALSE, ...) standardGeneric("plotMM")
 )
 
+##Plot 1b: BB plot
+setGeneric("plotBB",
+	function(x, ...) standardGeneric("plotBB")
+)
+
 ##Plot 2: 3D B-B-B plot FIXME
 setGeneric("plotBBB",
 	function(x, ...) standardGeneric("plotBBB")

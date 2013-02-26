@@ -36,6 +36,28 @@ setMethod("plotMM", c(x = "Rcade"),
 	}
 )
 
+##Plot 1b: BB plot
+setMethod("plotBB", c(x = "Rcade"),
+	function(x, xlab="DE Log-odds", ylab="ChIP Log-odds", pch=19, xlim=NULL, ylim=NULL, main="ChIP against Expression", ...)
+	{
+		DE <- x@Rcade$B.DE
+		ChIP <- x@Rcade$B.ChIP
+
+		if(is.null(xlim))
+		{
+			temp <- DE[is.finite(DE)]
+			xlim <- range(temp)
+		}
+		if(is.null(ylim))
+		{
+			temp <- ChIP[is.finite(ChIP)]
+			ylim <- range(temp)
+		}
+
+		plot(DE, ChIP, xlab=xlab, ylab=ylab, pch=pch, xlim=xlim, ylim=ylim, main=main, ...)
+	}
+)
+
 ##Plot 2: 3D B-B-B plot
 setMethod("plotBBB", c(x = "Rcade"),
 	function(x, xlab = "B (DE)", ylab = "B (ChIP)", zlab = "B (Combined)", main = "ChIP against Expression", col.scale=rainbow(10000), col, ...)

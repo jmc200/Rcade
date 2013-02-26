@@ -40,31 +40,34 @@ constructRcadeTable <- function(DE, DElookup, chip, annoZone, annoZoneGeneidName
 
 	##Joint analysis
 	##calculate relevant probabilities
-	rcade$p.DE <- logit(rcade$B.DE)
-	rcade$p.ChIP <- logit(rcade$B.ChIP)
+	rcade$p.DE <- expit(rcade$B.DE)
+	rcade$p.ChIP <- expit(rcade$B.ChIP)
 
 	##FIXME considerations re: prior
 	if(prior.mode == "assumeIndependent")
 	{
-		rcade$B.nothing <- with(rcade, arclogit((1 - p.DE) * (1 - p.ChIP)))
-		rcade$B.DE.only <- with(rcade, arclogit(p.DE * (1 - p.ChIP)))
-		rcade$B.ChIP.only <- with(rcade, arclogit((1 - p.DE) * p.ChIP))
-		rcade$B.ChIP.DE <- with(rcade, arclogit(p.DE * p.ChIP))
+		rcade$B.nothing <- with(rcade, logit((1 - p.DE) * (1 - p.ChIP)))
+		rcade$B.DE.only <- with(rcade, logit(p.DE * (1 - p.ChIP)))
+		rcade$B.ChIP.only <- with(rcade, logit((1 - p.DE) * p.ChIP))
+		rcade$B.ChIP.DE <- with(rcade, logit(p.DE * p.ChIP))
 	} else if (prior.mode == "keepChIP") {
 		names(prior) <- c("D|C", "D|-C") ##this is mostly for my benefit, really
 		probs <- rep(0, 4)
-		names(probs) <- c("-C-D", "-CD", "C-D", "CD")
-		probs <- with(rcade, list(
+		names(probs) <- c("nCnD", "nCD", "CnD", "CD") #'-' not allowed in data.frame names? replaced with n
+		probs <- with(rcade, data.frame(
 			"CD"=p.DE*p.ChIP*prior[1]/DE.prior,
-			"-CD"=p.DE*(1-p.ChIP)*prior[2]/DE.prior,
-			"C-D"=(1-p.DE)*p.ChIP*(1-prior[1])/(1-DE.prior),
-			"-C-D"=(1-p.DE)*(1-p.ChIP)*(1-prior[2])/(1-DE.prior)
+			"nCD"=p.DE*(1-p.ChIP)*prior[2]/DE.prior,
+			"CnD"=(1-p.DE)*p.ChIP*(1-prior[1])/(1-DE.prior),
+			"nCnD"=(1-p.DE)*(1-p.ChIP)*(1-prior[2])/(1-DE.prior)
 		))
-		probs <- probs/sum(probs)
-		rcade$B.nothing <- arclogit(probs[["-C-D"]])
-		rcade$B.DE.only <- arclogit(probs[["-CD"]])
-		rcade$B.ChIP.only <- arclogit(probs[["C-D"]])
-		rcade$B.ChIP.DE <- arclogit(probs[["CD"]])
+
+		probs <- probs/rowSums(probs)
+
+
+		rcade$B.nothing <- logit(probs[["nCnD"]])
+		rcade$B.DE.only <- logit(probs[["nCD"]])
+		rcade$B.ChIP.only <- logit(probs[["CnD"]])
+		rcade$B.ChIP.DE <- logit(probs[["CD"]])
 	}
 
 	rcade <- rcade[order(rcade$B.ChIP.DE, decreasing = T),]

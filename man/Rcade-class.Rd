@@ -4,10 +4,12 @@
 
 \alias{plotBBB}
 \alias{plotMM}
+\alias{plotBB}
 \alias{plotPCA}
 
 \alias{plotBBB,Rcade-method} %FIXME document all of these
 \alias{plotMM,Rcade-method}
+\alias{plotBB,Rcade-method}
 \alias{plotPCA,Rcade-method}
 
 \alias{getDE}
@@ -39,7 +41,10 @@ Objects of this class are typically created with the \code{\link{RcadeAnalysis}}
       \code{plotPCA(x, ...)}: Perform PCA analysis on the ChIP-seq data and plot the results. 
 	}
     \item{}{
-      \code{plotMM(x, DE.abs=FALSE, ...)}: Plot ChIP log-ratios against DE log-ratios. If \code{DE.abs=TRUE}, then absolute values of DE log-ratios are plotted. \code{...} arguments are passed to \code{\link{plot}}. FIXME 
+      \code{plotMM(x, DE.abs=FALSE, ...)}: Plot ChIP log-ratios against DE log-ratios. If \code{DE.abs=TRUE}, then absolute values of DE log-ratios are plotted. \code{...} arguments are passed to \code{\link{plot}}. 
+    }
+    \item{}{
+      \code{plotBB(x, ...)}: Plot ChIP log-odds against DE log-odds. \code{...} arguments are passed to \code{\link{plot}}. 
     }
     \item{}{
       \code{plotBBB(x, ...)}: (NB: Requires the CRAN package \pkg{rgl}.) 3D plot comparing log-odds values for ChIP, DE and combined ChIP & DE. \code{...} arguments are passed to \code{\link{plot}}.

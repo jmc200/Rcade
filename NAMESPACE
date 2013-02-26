@@ -1,5 +1,5 @@
 exportClasses(Rcade, RcadeTrack)
-exportMethods(plotMM, plotBBB, plotPCA, exportRcade, getDE, getChIP, getRcade, "getDE<-", "getChIP<-", "getRcade<-")
+exportMethods(plotMM, plotBB, plotBBB, plotPCA, exportRcade, getDE, getChIP, getRcade, "getDE<-", "getChIP<-", "getRcade<-")
 
 ##Analysis function
 export(RcadeAnalysis)

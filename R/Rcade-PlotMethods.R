@@ -32,7 +32,7 @@ setMethod("plotMM", c(x = "Rcade"),
 
 		#sel <- x@Rcade$M.ChIP > 0
 
-		plot(DE, x@Rcade$M, xlab=xlab, ylab=ylab, pch=pch, col=col.scale[length(col.scale)*heights], xlim=xlim, ylim=ylim, main=main, ...)
+		plot(DE, x@Rcade$M, xlab=xlab, ylab=ylab, pch=pch, col=col.scale[floor(length(col.scale)*heights) + 1], xlim=xlim, ylim=ylim, main=main, ...)
 	}
 )
 

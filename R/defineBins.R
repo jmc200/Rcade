@@ -73,7 +73,9 @@ defineBins <- function(anno, zone, geneID = "ensembl_gene_id", removeDuplicates=
 	colnames(temp) <- geneID
 
 	##get ready to transfer everything else FIXME test thoroughly
-	sel <- !colnames(anno) %in% c(chr,start,end,str,geneID)
+	sel <- !colnames(anno) %in% c(chr,start,end,str,geneID) #no redundancies
+			& !colnames(anno) %in% c("seqnames", "ranges", "strand", "seqlevels", "seqlengths", "isCircular", "start", "end", "width", "element") #prohibited by DataFrame/GRanges object
+
 	if(any(sel))
 	{
 		temp2 <- DataFrame(anno[,sel])

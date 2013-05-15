@@ -42,3 +42,6 @@ setGeneric("getRcade", function(x) standardGeneric("getRcade"))
 setGeneric("getDE<-", function(x, what="summary", value) standardGeneric("getDE<-")) 
 setGeneric("getChIP<-", function(x, what="summary", value) standardGeneric("getChIP<-")) 
 setGeneric("getRcade<-", function(x, value) standardGeneric("getRcade<-")) 
+
+##Gene set operations
+##FIXME

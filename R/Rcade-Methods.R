@@ -118,3 +118,6 @@ setReplaceMethod("getRcade", c(x="Rcade"),
 			x
 		}
 )
+
+##Gene set operations
+##FIXME

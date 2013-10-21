@@ -1,5 +1,4 @@
 ##Plot 1: MM plot
-##TODO allow |logfc|
 setMethod("plotMM", c(x = "Rcade"),
 	function(x, DE.abs, xlab="DE Log Ratio", ylab="ChIP Log Ratio", pch=19, xlim=NULL, ylim=NULL, zlim=NULL, main="ChIP against Expression", col.scale=rainbow(10000), ...)
 	{

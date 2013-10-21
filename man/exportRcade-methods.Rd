@@ -54,7 +54,7 @@ exportRcade(x, directory="RcadeOutput", cutoffMode="top", cutoffArg = 1000, just
 		Down.csv		\tab	Ignored	\tab	Present (logFC < 0)	\cr
 		DownNoChIP.csv	\tab	Absent	\tab	Present (logFC < 0)	\cr
 		Nothing.csv		\tab	Absent	\tab	Absent	\cr
-		UpChIP.csv		\tab	Present	\tab	Present (logFC > 0)	\cr
+		UpChIP.csv		\tab	Present	(needs log ratio > 0)	\tab	Present (logFC > 0)	\cr
 		Up.csv			\tab	Ignored	\tab	Present (logFC > 0)	\cr
 		UpNoChIP.csv	\tab	Absent	\tab	Present (logFC > 0)	\cr
 	}

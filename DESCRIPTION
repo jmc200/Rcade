@@ -2,7 +2,7 @@ Package: Rcade
 Title: R-based analysis of ChIP-seq And Differential Expression - a
        tool for integrating a count-based ChIP-seq analysis with
        differential expression summary data.
-Version: 1.5.2
+Version: 1.5.3
 Date: 2012-01-25
 Author: Jonathan Cairns
 Maintainer: Jonathan Cairns <jmcairns200@gmail.com>

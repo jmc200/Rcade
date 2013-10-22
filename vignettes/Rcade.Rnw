@@ -4,6 +4,10 @@
 %\VignettePackage{Rcade}
 \documentclass{article}
 
+<<style, eval=TRUE, echo=FALSE, results=tex>>=
+BiocStyle::latex()
+@
+
 \usepackage{amsmath}
 \usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
@@ -15,14 +19,14 @@
 %\parskip=.3cm
 \oddsidemargin=.1in
 \evensidemargin=.1in
-\headheight=-.3in
+%\headheight=-.3in
 
-\newcommand{\Rfunction}[1]{{\texttt{#1}}}
-\newcommand{\Robject}[1]{{\texttt{#1}}}
-\newcommand{\Rpackage}[1]{{\textsf{#1}}}
+%\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+%\newcommand{\Robject}[1]{{\texttt{#1}}}
+%\newcommand{\Rpackage}[1]{{\textsf{#1}}}
 \newcommand{\Rmethod}[1]{{\texttt{#1}}}
 \newcommand{\Rfunarg}[1]{{\texttt{#1}}}
-\newcommand{\Rclass}[1]{{\textit{#1}}}
+%\newcommand{\Rclass}[1]{{\textit{#1}}}
 
 \SweaveOpts{keep.source=TRUE} 
 
@@ -58,20 +62,20 @@ In some situations, it may be appropriate to define the binding site universe ba
 
 Each gene is assumed to have some number of associated binding sites, each of which can be active or inactive as inferred from the ChIP-seq data. Additionally, every gene has one or more expression values, each of which is either DE or not DE under some perturbation - for example, knockdown or stimulation of a TF of interest. It is assumed that, conditional on a gene having both a ChIP-seq signal and a DE signature, the ChIP-seq and expression data associated with that gene are independent. All pairwise interactions between ChIP and DE data are considered for a given gene.
 
-The ``gene ID" does not have to refer to literal genes. For example, a user with transcript-specific expression data could use transcript IDs instead.
+The ``gene ID" need not literally refer to genes. For example, a user with transcript-specific expression data could use transcript IDs instead.
 
 %FIXME Transcript
 
 \section{Simple workflow}
-In this vignette, we will use the example data provided in the \Rpackage{Rcade} package. These data were obtained from two sources, each pertaining to the transcription factor STAT1. All of the experiments were performed with cells from the HeLa cell line: 
+In this vignette, we will use the example data provided in the \Rpackage{Rcade} package. These data were obtained from two sources, each pertaining to the transcription factor STAT1. All of the experiments were performed with cells from the HeLa cell line. The two data sets are: 
 
-\begin{itemize}
-	\item Differential Expression data from Array Express, \\{\tt http://www.ebi.ac.uk/arrayexpress}, under accession number E-GEOD-11299. In this experiment, HeLa cells were stimulated with IFN$\gamma$, and a time course microarray experiment was performed. We have assessed DE status between the 0h and 6h time points.
-	\item STAT1 ChIP-seq data from the Snyder lab, as part of the ENCODE consortium\\ %(\cite{Birney2007}).
+\begin{description}
+	\item[Differential Expression data] from Array Express, \\{\tt http://www.ebi.ac.uk/arrayexpress}, under accession number E-GEOD-11299. In this experiment, HeLa cells were stimulated with IFN$\gamma$, and a time course microarray experiment was performed. We have assessed DE status between the 0h and 6h time points.
+	\item[STAT1 ChIP-seq data] from the Snyder lab, as part of the ENCODE consortium\\ %(\cite{Birney2007}).
 	Input DCC accession numbers: wgEncodeEH000611 and wgEncodeEH000612\\
 	ChIP DCC accession number: wgEncodeEH000614\\
-	Here, HeLa cells were stimulated 
-\end{itemize}
+	Here, HeLa cells were stimulated with IFN$\gamma$ for 30 minutes, then cells were harvested and STAT1 ChIP-seq was performed.
+\end{description}
 
 To keep the size of the package down, all of these files have been truncated. Thus, they only contain data pertinent to a handful of selected genes. %Instructions for recreating the full files from the original data sources are in the appendix. FIXME separate vignette?
 
@@ -232,7 +236,7 @@ We can perform Principle Component Analysis on the counts with the \Rfunction{pl
 plotPCA(Rcade)
 @
 
-\begin{figure}
+\begin{figure}[p]
 	\begin{center}
 <<P1fig,fig=TRUE,echo=FALSE>>=
 <<P1>>
@@ -248,7 +252,7 @@ The MM plot shows log-ratios from DE plotted against log-ratios from the ChIP-se
 plotMM(Rcade)
 @
 
-\begin{figure}
+\begin{figure}[p]
 	\begin{center}
 <<P2fig,fig=TRUE,echo=FALSE>>=
 <<P2>>
@@ -266,7 +270,7 @@ library(rgl)
 plotBBB(Rcade)
 @
 
-\begin{figure}
+\begin{figure}[p]
 	\begin{center}
 	\includegraphics[width=\textwidth]{plotBBB.png}
 	\end{center}

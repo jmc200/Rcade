@@ -1,7 +1,7 @@
 ##get the levels in the Bam file
 getBamChrs <- function(file)
 {
-	require(Rsamtools)
+	#require(Rsamtools)
 	header <- scanBamHeader(file)
 	header <- lapply(header[[1]]$text, function(x) {x})
 	header <- header[names(header) == "@SQ"] ##get sequence lines only

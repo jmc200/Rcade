@@ -9,7 +9,6 @@ BiocStyle::latex()
 @
 
 \usepackage{amsmath}
-\usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 \usepackage{cite}
 \usepackage{Sweave}

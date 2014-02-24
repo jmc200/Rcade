@@ -9,6 +9,7 @@ BiocStyle::latex()
 @
 
 \usepackage{amsmath}
+\usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 \usepackage{cite}
 \usepackage{Sweave}
@@ -190,6 +191,24 @@ The \Rfunarg{zone=c(-1500,1500)} argument defines the zone of interest: it start
 
 The object \emph{ChIPannoZones} can now be used in the \Rpackage{Rcade} analysis.
 
+\subsubsection{Prior specification}
+
+By default, \Rpackage{Rcade}'s prior belief is that DE and ChIP-seq statuses are independent. This is almost certainly not true, as genes with ChIP-seq signal are more likely to be DE than other genes.
+
+Thus, we should give \Rpackage{Rcade} appropriate priors, if possible. For example, the prior dependency can be specified as follows:
+
+<<>>=
+DE.prior = 0.01
+prior.mode = "keepChIP"
+prior = c("D|C" = 0.05, "D|notC" = 0.005)
+@
+
+We specify \Rfunarg{DE.prior = 0.01} because that is the prior probability used by \Rpackage{limma}, the package that our DE analysis was performed with. The remaining settings ensure that genes with ChIP-seq signal have a higher than average probability of DE (\Rfunarg{"D|C" = 0.05}), whereas genes without ChIP-seq signal have a lower that average probability of DE (\Rfunarg{"D|notC" = 0.005}).
+
+(The values \Rfunarg{0.05} and \Rfunarg{0.005} were selected arbitrarily, before analysis. An advanced user might select \Rfunarg{prior} in a less arbitrary manner -- for example, by looking at the overlap between ChIP-seq and DE in ``similar" datasets. We do not go into further details of such an analysis here.)
+
+If you do not supply this information, you may get unreasonably small $B$ values at the end of the analysis.
+
 \subsection{Analysis function}
 
 We can parallelize \Rpackage{Rcade} by supplying a compute cluster (though this is optional):
@@ -209,7 +228,8 @@ We now process the data with the \Rfunction{RcadeAnalysis()} function, obtaining
 <<>>=
 Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG",
 	ChIPtargets=targets, ChIPfileDir = dir,
-	shift = 0, cl=cl, DElookup=DElookup)
+	shift = 0, cl=cl, DE.prior=DE.prior, prior.mode=prior.mode, prior=prior,
+	DElookup=DElookup)
 Rcade
 @
 

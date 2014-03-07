@@ -61,3 +61,5 @@ test_constructRcadeTable <- function() {
 
 	checkEqualsNumeric(r.ref[,cols], r.cal[,cols])
 }
+
+##4) TODO Check the prior calculations shown in the vignette

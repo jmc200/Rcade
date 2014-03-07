@@ -151,11 +151,21 @@ targets
 %FIXME Input -> control
 
 \subsubsection{Annotation information}
-In the ChIP-seq analysis, \Rpackage{Rcade} performs its analysis based on the counts in user-defined bin regions. These regions are specified with a \Robject{GRanges} object from the package \Rpackage{GenomicRanges}.
+In the ChIP-seq analysis, \Rpackage{Rcade} performs its analysis based on the counts in user-defined bin regions. These regions are specified with a \Robject{GRanges} object from the \Rpackage{GenomicRanges} package.
 
-A common requirement is to define bins about genomic annotation features: \Rpackage{Rcade} provides simple functionality to generate an appropriate \Robject{GRanges} object, through the \Rfunction{defineBins()} function. 
+A common requirement is to define bins about genomic annotation features: \Rpackage{Rcade} provides simple functionality to generate an appropriate \Robject{GRanges} object, through the \Rfunction{defineBins()} function. Since STAT1 is a promoter-bound TF, we define bins about Ensembl-derived transcription start sites.
 
-For the STAT1 ChIP-seq data, we'll be defining bins about Ensembl-derived transcription start sites. Download full transcript annotation information from Ensembl using \Rpackage{biomaRt}, as follows:
+In this vignette, we use a very reduced annotation file as follows: 
+%we're using a reduced version of the annotation, as follows. Do not use this in your own analysis!
+
+<<>>=
+anno <- read.csv(file.path(dir, "anno.csv"))
+
+anno <- anno[order(anno$chromosome_name),]
+colnames(anno) <- c("ENSG","chr","start","end","str")
+@
+
+Only use the preceding code to recreate the analysis in this vignette -- do not use it at any other point! When analysing genome-wide data, use full annotation information -- for example, download full transcript annotation information from Ensembl using \Rpackage{biomaRt}, as follows:
 
 <<eval = FALSE>>=
 library(biomaRt)
@@ -172,16 +182,7 @@ anno <- anno[order(anno$chromosome_name),]
 colnames(anno) <- c("ENSG","chr","start","end","str")
 @
 
-%we're using a reduced version of the annotation, as follows. Do not use this in your own analysis!
-
-<<echo=FALSE>>=
-anno <- read.csv(file.path(dir, "anno.csv"))
-
-anno <- anno[order(anno$chromosome_name),]
-colnames(anno) <- c("ENSG","chr","start","end","str")
-@
-
-We define bins based on the annotation with the \Rfunction{defineBins()} function, as follows:
+We define bins based on the annotation information through the \Rfunction{defineBins()} function, as follows:
 
 <<>>=
 ChIPannoZones <- defineBins(anno, zone=c(-1500, 1500), geneID="ENSG")
@@ -193,7 +194,7 @@ The object \emph{ChIPannoZones} can now be used in the \Rpackage{Rcade} analysis
 
 \subsubsection{Prior specification}
 
-By default, \Rpackage{Rcade}'s prior belief is that DE and ChIP-seq statuses are independent. This is almost certainly not true, as genes with ChIP-seq signal are more likely to be DE than other genes.
+By default, \Rpackage{Rcade}'s prior belief is that each gene's DE and ChIP-seq statuses are independent. This is unlikely to be true in real data, as genes with ChIP-seq signal are more likely to be DE than other genes.
 
 Thus, we should give \Rpackage{Rcade} appropriate priors, if possible. For example, the prior dependency can be specified as follows:
 

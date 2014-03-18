@@ -85,18 +85,18 @@ diffCountsBaySeq <- function(counts, targets, annoZones, cl = NULL, getLibsizesA
 		if (nrow(cD@posteriors) > 0) {
 		    Adata <- colSums(t(cD@data[, samplesA])/cD@libsizes[samplesA])/length(samplesA)
 		    Bdata <- colSums(t(cD@data[, samplesB])/cD@libsizes[samplesB])/length(samplesB)
-		    Azeros <- which(Adata == 0)
-		    Bzeros <- which(Bdata == 0)
-		    bexp <- log2(Bdata[Azeros] * mean(cD@libsizes[c(samplesA, 
-		        samplesB)]))
-		    aexp <- log2(Adata[Bzeros] * mean(cD@libsizes[c(samplesA, 
-		        samplesB)]))
-		    minZeros <- floor(min(aexp[aexp > -Inf], bexp[bexp > 
-		        -Inf]))
-		    maxZeros <- ceiling(max(aexp, bexp))
-		    logData <- log2(Adata/Bdata)
+#		    Azeros <- which(Adata == 0)
+#		    Bzeros <- which(Bdata == 0)
+#		    bexp <- log2(Bdata[Azeros] * mean(cD@libsizes[c(samplesA, 
+#		        samplesB)]))
+#		    aexp <- log2(Adata[Bzeros] * mean(cD@libsizes[c(samplesA, 
+#		        samplesB)]))
+#		    minZeros <- floor(min(aexp[aexp > -Inf], bexp[bexp > 
+#		        -Inf]))
+#		    maxZeros <- ceiling(max(aexp, bexp))
+#		    logData <- log2(Adata/Bdata)
 			M <- log(Adata/Bdata)
-			A <- log(Adata*Bdata)
+			A <- 0.5*log(Adata*Bdata)
 
 			return(cbind(M = M, A = A))
 	#        infRatios <- which(abs(logData) == Inf | is.na(logData))

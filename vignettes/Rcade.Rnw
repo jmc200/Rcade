@@ -138,11 +138,14 @@ dir(dir, pattern = ".bam")
 
 	Required fields:
 	\begin{description}
-		\item[fileID] - ID associated with the file.
-		\item[sampleID] - ID associated with the sample that was sequenced. Technical replicates of the same population should have the same sampleID.
-		\item[factor] - The antibody used in the experiment. Control files should be labelled "Input".
-		\item[filepath] - The .bam file's name/path.
+		\item[fileID] -- ID associated with the file.
+		\item[sampleID] -- ID associated with the sample that was sequenced. Technical replicates of the same population should have the same sampleID.
+		\item[factor] -- The antibody used in the experiment. Control files should be labelled "Input".
+		\item[filepath] -- The .bam file's name/path.
 	\end{description}
+	Optional fields:
+	\begin{description}
+		\item[shift] -- Half of the fragment length. That is, before counting, \Rpackage{Rcade} will shift reads on the positive strand forwards by \Rfunction{shift}, and reads on the negative strand backwards by \Rfunction{shift}.
 <<>>=
 targets <- read.csv(file.path(dir, "targets.csv"), as.is = TRUE)
 targets
@@ -229,7 +232,7 @@ We now process the data with the \Rfunction{RcadeAnalysis()} function, obtaining
 <<>>=
 Rcade <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG",
 	ChIPtargets=targets, ChIPfileDir = dir,
-	shift = 0, cl=cl, DE.prior=DE.prior, prior.mode=prior.mode, prior=prior,
+	cl=cl, DE.prior=DE.prior, prior.mode=prior.mode, prior=prior,
 	DElookup=DElookup)
 Rcade
 @

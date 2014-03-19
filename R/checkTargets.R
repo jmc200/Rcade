@@ -9,7 +9,12 @@ checkTargets <- function(targets)
 	map <- pmatch(required, tolower(colnames(targets)), nomatch = NA_integer_, duplicates.ok = FALSE)
 	names(map) = required
 
-	##FIXME optional columns: shift, scale, index
+	##TODO optional columns: shift, scale, index
+	##If shift not specified, set it to 0.
+	if(is.null(targets$shift))
+	{
+		targets$shift = 0
+	}
 
 	##Disallow duplicated col names
 	if(any(duplicated(colnames(targets))))

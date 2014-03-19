@@ -10,10 +10,9 @@ RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName="ensembl_gene_id
 {
 	##FIXME allow altering of e.g. getLibsizesArgs
 	##TODO ability to dump partial output upon error?
-	##TODO use paraList slot - put parameters into slot
 	##TODO verbose parsing of ChIPtargets
 
-	##FIXME before we do *anything*, check arguments are valid
+	##before we do *anything*, check arguments are valid
 	##FIXME check that there is sufficient overlap between geneIDs to proceed
 	##ChIPannoZones/annoZoneGeneidName
 	if(!annoZoneGeneidName %in% colnames(values(ChIPannoZones)))
@@ -37,6 +36,11 @@ RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName="ensembl_gene_id
 	##
 	##FIXME NAs? Check column types are correct?
 
+	##--------------------------------------------------------------
+	##Collect parameters from "..." object
+
+	paraList <- list(...)
+
 	##---------------------------------------------------------------
 
 	##create new Rcade object, transfer things across
@@ -54,9 +58,22 @@ RcadeAnalysis <- function(DE, ChIPannoZones, annoZoneGeneidName="ensembl_gene_id
 	output@ChIP[[1]]@counts <- countReads(ChIPannoZones, ChIPtargets, ChIPfileDir)
 
 	##3 baySeq -----------------------------------
-	output@ChIP[[1]]@summary <- diffCountsBaySeq(output@ChIP[[1]]@counts, ChIPtargets, ChIPannoZones, cl = cl, getLibsizesArgs = list(estimationType = "quantile", quantile = 0.75), getPriors.NBArgs = NULL, getLikelihoods.NBArgs = NULL)
+
+	##grab all relevant arguments from paraList
+	sel <- names(formals(Rcade::diffCountsBaySeq)) ##the names of the required arguments
+	DCparas <- paraList[sel] ##create paras
+	names(DCparas) <- sel
+
+	DCparas$counts <- output@ChIP[[1]]@counts
+	DCparas$targets <- ChIPtargets
+	DCparas$annoZones <- ChIPannoZones
+	DCparas$cl <- cl
+	if(is.null(DCparas$getLibsizesArgs)) {DCparas$getLibsizesArgs = list(estimationType = "quantile", quantile = 0.75)}
+
+	##run baySeq
+	output@ChIP[[1]]@summary <- do.call(diffCountsBaySeq, DCparas)
+	#output@ChIP[[1]]@summary <- diffCountsBaySeq(output@ChIP[[1]]@counts, ChIPtargets, ChIPannoZones, cl = cl, getLibsizesArgs = list(estimationType = "quantile", quantile = 0.75), getPriors.NBArgs = NULL, getLikelihoods.NBArgs = NULL)
 	##FIXME get libsizes from targets
-	##FIXME transfer Args
 	
 	##4 constructRcadeTable ----------------------	
 	output@Rcade <- constructRcadeTable(DE, DElookup, output@ChIP[[1]]@summary, ChIPannoZones, annoZoneGeneidName, DE.prior, ChIP.prior=NULL, prior.mode=prior.mode, prior)

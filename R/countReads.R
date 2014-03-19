@@ -142,7 +142,7 @@ countReads <- function(annoZone, targets, fileDir = NULL, dontCheckTargets=FALSE
 #			x <- x[sel]
 #		}
 
-		ChIPshift = 0 ##FIXME obtain this from targets
+		ChIPshift = targets$shift[i]
 
 		##reduce to 5'
 		sel <- strand(x) == "+"

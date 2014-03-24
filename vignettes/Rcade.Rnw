@@ -103,20 +103,19 @@ To perform an \Rpackage{Rcade} analysis, you will need the following input data:
 		\item \Rpackage{baySeq}. %FIXME instructions for obtaining B values from baySeq
 	\end{itemize}
 
-At time of writing, \Rpackage{edgeR} and \Rpackage{DEseq} do not supply Bayesian output.
+	At time of writing, \Rpackage{edgeR} and \Rpackage{DEseq} do not supply Bayesian output.
 
-The DE data must contain the following fields:
-\begin{description}
-	\item[geneID] - gene IDs used to link DE results to genes.
-	\item[logFC] - The log fold change associated with each gene.
-	\item[B] - B values (log-odds).
-\end{description}
-
+	The DE data must contain the following fields:
+	\begin{description}
+		\item[geneID] - gene IDs used to link DE results to genes.
+		\item[logFC] - The log fold change associated with each gene.
+		\item[B] - B values (log-odds).
+	\end{description}
 <<>>=
 DE <- read.csv(file.path(dir, "DE.csv"))
 @
 
-\item[DElookup:] We also need to tell \Rpackage{Rcade} which columns of the DE matrix are important. This is done using an object of the form \Rfunction{list(RcadeField1=DEdataField1, ...)}. You may omit the name \Rfunction{RcadeField1} if it is the same as \Rfunction{DEdataField1}. Any fields that are specified in addition to the three required fields above will not be manipulated in the analysis, but will be carried through and appear in the output.
+	\item[DElookup:] We also need to tell \Rpackage{Rcade} which columns of the DE matrix are important. This is done using an object of the form \Rfunction{list(RcadeField1=DEdataField1, ...)}. You may omit the name \Rfunction{RcadeField1} if it is the same as \Rfunction{DEdataField1}. Any fields that are specified in addition to the three required fields above will not be manipulated in the analysis, but will be carried through and appear in the output.
 
 <<>>=
 DElookup <- list(GeneID="ENSG", logFC="logFC", B="B",
@@ -127,30 +126,32 @@ DElookup <- list(GeneID="ENSG", logFC="logFC", B="B",
 
 \subsubsection{ChIP-seq data}
 
-\begin{description}
-	\item[.bam and .bai files:] Sets of aligned reads. These reads should have already undergone sequence-level pre-processing, such as any read trimming and adaptor removal that may be required. Moreover, they should have appropriate index files - for example, using the \Rfunction{indexBam} function in the package \Rpackage{Rbamtools}.
-	Example .bam and .bai files are provided in the package:
+	\begin{description}
+		\item[.bam and .bai files:] Sets of aligned reads. These reads should have already undergone sequence-level pre-processing, such as any read trimming and adaptor removal that may be required. Moreover, they should have appropriate index files - for example, using the \Rfunction{indexBam} function in the package \Rpackage{Rbamtools}.
+		Example .bam and .bai files are provided in the package:
 <<>>=
 dir(dir, pattern = ".bam")
 @
 
-	\item[Targets information:]	A matrix containing information about the .Bam files to be used in the analysis.
+		\item[Targets information:]	A matrix containing information about the .Bam files to be used in the analysis.
 
-	Required fields:
-	\begin{description}
-		\item[fileID] -- ID associated with the file.
-		\item[sampleID] -- ID associated with the sample that was sequenced. Technical replicates of the same population should have the same sampleID.
-		\item[factor] -- The antibody used in the experiment. Control files should be labelled "Input".
-		\item[filepath] -- The .bam file's name/path.
-	\end{description}
-	Optional fields:
-	\begin{description}
-		\item[shift] -- Half of the fragment length. That is, before counting, \Rpackage{Rcade} will shift reads on the positive strand forwards by \Rfunction{shift}, and reads on the negative strand backwards by \Rfunction{shift}.
+		Required fields:
+		\begin{description}
+			\item[fileID] -- ID associated with the file.
+				\item[sampleID] -- ID associated with the sample that was sequenced. Technical replicates of the same population should have the same sampleID.
+			\item[factor] -- The antibody used in the experiment. Control files should be labelled "Input".
+			\item[filepath] -- The .bam file's name/path.
+		\end{description}
+		Optional fields:
+		\begin{description}
+			\item[shift] -- Half of the fragment length. That is, before counting, \Rpackage{Rcade} will shift reads on the positive strand forwards by \Rfunction{shift}, and reads on the negative strand backwards by \Rfunction{shift}.
+		\end{description}
 <<>>=
 targets <- read.csv(file.path(dir, "targets.csv"), as.is = TRUE)
 targets
 @
-\end{description}
+	\end{description}
+
 %FIXME Input -> control
 
 \subsubsection{Annotation information}

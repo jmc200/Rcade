@@ -15,7 +15,7 @@ Description: Rcade (which stands for "R-based analysis of ChIP-seq And
         differential expression under some perturbation related to that
         TF.
 Depends: R (>= 2.14.0), methods, GenomicRanges, baySeq, Rsamtools
-Imports: graphics, IRanges, rgl
+Imports: graphics, IRanges, rgl, plotrix
 Suggests: limma, biomaRt, RUnit, BiocGenerics, BiocStyle
 License: GPL-2
 biocViews: DifferentialExpression, GeneExpression, Transcription,

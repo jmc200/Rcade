@@ -55,7 +55,21 @@ test_constructRcadeTable <- function() {
 	chip <- getChIP(RcadeSTAT1)
 	annoZone <- getChIP(RcadeSTAT1, what="annoZones")
 
-	r.cal <- constructRcadeTable(DE, DElookup, chip, annoZone, annoZoneGeneidName="ENSG", DE.prior=NULL, ChIP.prior=NULL, prior.mode="assumeIndependent", prior=NULL)
+	###################################################
+  ##prior used in vignette
+  ###################################################
+	DE.prior = 0.01
+	prior.mode = "keepChIP"
+	prior = c("D|C" = 0.05, "D|notC" = 0.005)
+	cl <- NULL
+
+  r.cal <- constructRcadeTable(DE, DElookup, chip, annoZone, annoZoneGeneidName="ENSG", DE.prior=DE.prior, ChIP.prior=NULL, prior.mode=prior.mode, prior=prior)
+  
+  #RcadeSTAT1 <- RcadeAnalysis(DE, ChIPannoZones, annoZoneGeneidName="ENSG",
+	#                            ChIPtargets=targets, ChIPfileDir = dir,
+	#                            cl=cl, DE.prior=DE.prior, prior.mode=prior.mode, prior=prior,
+	#                            DElookup=DElookup)
+	#r.cal <- constructRcadeTable(DE, DElookup, chip, annoZone, annoZoneGeneidName="ENSG", DE.prior=NULL, ChIP.prior=NULL, prior.mode="assumeIndependent", prior=NULL)
 
 	cols <- c("B.nothing", "B.DE.only","B.ChIP.only","B.ChIP.DE")
 

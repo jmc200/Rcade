@@ -1,7 +1,13 @@
 ##Plot 1: MM plot
 setMethod("plotMM", c(x = "Rcade"),
-	function(x, DE.abs, xlab="DE Log Ratio", ylab="ChIP Log Ratio", pch=19, xlim=NULL, ylim=NULL, zlim=NULL, main="ChIP against Expression", col.scale=rainbow(10000), ...)
+	function(x, DE.abs, xlab="DE Log Ratio", ylab="ChIP Log Ratio", pch=19, xlim=NULL, ylim=NULL, zlim=NULL, main="ChIP against Expression", col.scale=rainbow(10000)[1000:10000], col.z.inf="black", legend=TRUE, legend.x=NULL, ...)
 	{
+	  if(legend)
+    {
+      require(plotrix) ##need color.legend()
+	  }
+    
+    
 		DE <- x@Rcade$logfc.DE
 		if(DE.abs)
 		{
@@ -12,6 +18,7 @@ setMethod("plotMM", c(x = "Rcade"),
 		{
 			temp <- DE[is.finite(DE)]
 			xlim <- range(temp)
+      if(legend) {xlim[2] <- xlim[2]*8/7.3 + 0.6} ##make room for legend
 		}
 
 		if(is.null(ylim))
@@ -26,12 +33,39 @@ setMethod("plotMM", c(x = "Rcade"),
 			zlim <- range(heights, na.rm=TRUE, finite=TRUE)
 		}
 
-        heights <- heights - zlim[1]
-        heights <- heights/(zlim[2] - zlim[1])
+    heights <- heights - zlim[1]
+    heights <- heights/(zlim[2] - zlim[1])
 
+    col.which <- floor(length(col.scale)*heights)
+    col.which <- ifelse(col.which < length(col.scale), col.which + 1, col.which) ##i.e. add one, UNLESS heights == 1 (zero-index issue)
+    
+    cols <-  col.scale[col.which]
+    cols <- ifelse(is.na(cols), col.z.inf, cols) ##replace Infs (or any other problematic "heights" value) s.t. col=col.z.inf
+    
 		#sel <- x@Rcade$M.ChIP > 0
 
-		plot(DE, x@Rcade$M, xlab=xlab, ylab=ylab, pch=pch, col=col.scale[floor(length(col.scale)*heights) + 1], xlim=xlim, ylim=ylim, main=main, ...)
+		plot(DE, x@Rcade$M.ChIP, xlab=xlab, ylab=ylab, pch=pch, col=cols, xlim=xlim, ylim=ylim, main=main, ...)
+    
+		if(legend)
+		{	#construct legend
+		  legend <- seq(from=zlim[1], to=zlim[2], length.out=6)
+		  legend <- round(legend, digits=1)
+		  legend <- paste("B = ", legend, sep = "")
+		  
+		  if(is.null(legend.x))
+        {
+          legend.x <- xlim[1] + (xlim[2]-xlim[1])*c(7.3,7.4)/8 ##TODO improve? How wide is the text?
+		    }
+		  
+		  ##reduce resolution of colour scale to stop white flecks appearing
+		  scale.sel <- floor(seq(from=1, to=length(col.scale), length.out=500))
+		  col.scale.sel <- col.scale[scale.sel]
+      
+		  color.legend(legend.x[1], ylim[1], legend.x[2], 0.15*ylim[1] + 0.85*ylim[2],
+		               legend=legend, rect.col=col.scale.sel, cex=1, align="rb", gradient="y")
+		  color.legend(legend.x[1], 0.1*ylim[1] + 0.9*ylim[2], legend.x[2], ylim[2],
+		               legend="B = Inf", rect.col=col.z.inf, cex=1, align="rb", gradient="y")
+		}
 	}
 )
 

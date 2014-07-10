@@ -146,7 +146,7 @@ countReads <- function(annoZone, targets, fileDir = NULL, dontCheckTargets=FALSE
 
 		##reduce to 5'
 		sel <- strand(x) == "+"
-		start <- IRanges::ifelse(sel, start(x) + ChIPshift, end(x) - ChIPshift)
+		start <- S4Vectors::ifelse(sel, start(x) + ChIPshift, end(x) - ChIPshift)
 		start(x) <- start
 		width(x) <- 1
 

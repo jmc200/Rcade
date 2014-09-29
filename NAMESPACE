@@ -8,4 +8,5 @@ export(RcadeAnalysis)
 export(defineBins, countReads, diffCountsBaySeq, constructRcadeTable)
 
 
-#importFrom(rgl, plot3d)
+importFrom(rgl, plot3d)
+importFrom(S4Vectors, ifelse)

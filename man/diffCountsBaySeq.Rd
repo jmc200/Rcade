@@ -51,13 +51,11 @@ diffCountsBaySeq(counts, targets, annoZones, cl = NULL, getLibsizesArgs = list(e
 \value{
 	\code{data.frame} containing differential count information. %FIXME
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+\references{Hardcastle, T. J., & Kelly, K. A. (2010). baySeq: Empirical Bayesian methods for identifying differential expression in sequence count data. BMC Bioinformatics, 11, 422.}
 \author{Jonathan Cairns}
-\note{
+%\note{
 %%  ~~further notes~~
-}
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

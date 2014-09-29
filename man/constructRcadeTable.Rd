@@ -28,37 +28,33 @@ constructRcadeTable(DE, DElookup, chip, annoZone, annoZoneGeneidName, DE.prior=N
 	\code{character} - The column in the metadata of \code{annoZone} argument that contains the geneIDs.
 }
   \item{DE.prior}{
-	FIXME
+	As per \code{\link{RcadeAnalysis}}
 }
   \item{ChIP.prior}{
-	FIXME
+	As per \code{\link{RcadeAnalysis}}
 }
   \item{prior.mode}{
-	FIXME
+	As per \code{\link{RcadeAnalysis}}
 }
   \item{prior}{
-	FIXME
+	As per \code{\link{RcadeAnalysis}}
 }
 }
-\details{
+%\details{
 %%  ~~ If necessary, more details than the description above ~~
-}
+%}
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\code{data.frame}
 }
-\references{
+%\references{
 %% ~put references to the literature/web site here ~
-}
+%}
 \author{
-%%  ~~who you are~~
+Jonathan Cairns
 }
-\note{
+%\note{
 %%  ~~further notes~~
-}
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

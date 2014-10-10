@@ -76,4 +76,18 @@ test_constructRcadeTable <- function() {
 	checkEqualsNumeric(r.ref[,cols], r.cal[,cols])
 }
 
-##4) TODO Check the prior calculations shown in the vignette
+##4) TODO Check baySeq calculation hasn't changed
+
+# test_diffCountsBaySeq <- function() {
+#   
+#   ##reference
+#   data(RcadeSTAT1)
+#   r.ref <- ##FIXME get from ... (RcadeSTAT1)
+#   
+#   ##calcuation
+#   woir <- diffCountsBaySeq(RcadeSTAT1@ChIP[[1]]@counts, RcadeSTAT1@ChIPtargets, annoZones = RcadeSTAT1@ChIP[[1]]@annoZones)
+# }
+
+##5) TODO Check the prior calculations shown in the vignette
+
+

@@ -61,7 +61,7 @@ diffCountsBaySeq <- function(counts, targets, annoZones, cl = NULL, getLibsizesA
 	{
 		CD <- temp
 	} else {
-		CD@libsizes <- temp
+		libsizes(CD) <- temp
 	}
 
 	##get priors
@@ -74,7 +74,7 @@ diffCountsBaySeq <- function(counts, targets, annoZones, cl = NULL, getLibsizesA
 	##get likelihood
 	getLikelihoods.NBArgs["cD"] = list(CD)
 	getLikelihoods.NBArgs["cl"] = list(cl)
-	CD <- do.call(getLikelihoods.NB, getLikelihoods.NBArgs)
+	CD <- do.call(getLikelihoods, getLikelihoods.NBArgs)
 
 	##Spew out B values
 	##
@@ -83,8 +83,9 @@ diffCountsBaySeq <- function(counts, targets, annoZones, cl = NULL, getLibsizesA
 		if (!inherits(cD, what = "countData")) 
 		    stop("variable 'cD' must be of or descend from class 'countData'")
 		if (nrow(cD@posteriors) > 0) {
-		    Adata <- colSums(t(cD@data[, samplesA])/cD@libsizes[samplesA])/length(samplesA)
-		    Bdata <- colSums(t(cD@data[, samplesB])/cD@libsizes[samplesB])/length(samplesB)
+        tempLibs <- as.numeric(baySeq::libsizes(cD))
+		    Adata <- colSums(t(cD@data[, samplesA])/tempLibs[samplesA])/length(samplesA)
+		    Bdata <- colSums(t(cD@data[, samplesB])/tempLibs[samplesB])/length(samplesB)
 #		    Azeros <- which(Adata == 0)
 #		    Bzeros <- which(Bdata == 0)
 #		    bexp <- log2(Bdata[Azeros] * mean(cD@libsizes[c(samplesA, 

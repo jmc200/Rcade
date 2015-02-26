@@ -339,7 +339,7 @@ exportRcade(Rcade, directory="RcadeOutput", cutoffMode="B", cutoffArg=0)
 
 \section{Questions/Bug reports}
 
-If you have any questions about \Rpackage{Rcade}, or encounter a bug, please post a message to the BioConductor mailing list at {\tt bioconductor@r-project.org}. This will help anybody who later searches for help on the same query.
+If you have any questions about \Rpackage{Rcade}, or encounter a bug, please post a message on the Bioconductor support site at \url{https://support.bioconductor.org/}. This will help anybody who later searches for help on the same query.
 
 \section{Session Info}
 

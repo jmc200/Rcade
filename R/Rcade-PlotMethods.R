@@ -4,7 +4,6 @@ setMethod("plotMM", c(x = "Rcade"),
 	{
 	  if(legend)
     {
-      require(plotrix) ##need color.legend()
 	  }
     
     
@@ -95,8 +94,6 @@ setMethod("plotBB", c(x = "Rcade"),
 setMethod("plotBBB", c(x = "Rcade"),
 	function(x, xlab = "B (DE)", ylab = "B (ChIP)", zlab = "B (Combined)", main = "ChIP against Expression", col.scale=rainbow(10000), col, ...)
 	{
-		require(rgl)
-
 		if(missing(col))
 		{
 			heights <- x@Rcade$B.ChIP.DE

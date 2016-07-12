@@ -1,3 +1,18 @@
+import(methods)
+importFrom(utils, packageDescription, write.csv)
+importFrom(grDevices, rainbow)
+importFrom(stats, prcomp)
+import(graphics)
+importFrom(rgl, plot3d)
+importFrom(plotrix, color.legend)
+import(S4Vectors)
+import(IRanges)
+import(GenomeInfoDb)
+import(GenomicRanges)
+import(Rsamtools)
+import(GenomicAlignments)
+import(baySeq)
+
 exportClasses(Rcade, RcadeTrack)
 exportMethods(plotMM, plotBB, plotBBB, plotPCA, exportRcade, getDE, getChIP, getRcade, "getDE<-", "getChIP<-", "getRcade<-")
 
@@ -7,6 +22,3 @@ export(RcadeAnalysis)
 ##Analysis Modules
 export(defineBins, countReads, diffCountsBaySeq, constructRcadeTable)
 
-
-importFrom(rgl, plot3d)
-importFrom(S4Vectors, ifelse)

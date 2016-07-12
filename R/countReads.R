@@ -1,7 +1,6 @@
 ##get the levels in the Bam file
 getBamChrs <- function(file)
 {
-	#require(Rsamtools)
 	header <- scanBamHeader(file)
 	header <- lapply(header[[1]]$text, function(x) {x})
 	header <- header[names(header) == "@SQ"] ##get sequence lines only
@@ -146,7 +145,7 @@ countReads <- function(annoZone, targets, fileDir = NULL, dontCheckTargets=FALSE
 
 		##reduce to 5'
 		sel <- strand(x) == "+"
-		start <- S4Vectors::ifelse(sel, start(x) + ChIPshift, end(x) - ChIPshift)
+		start <- ifelse(sel, start(x) + ChIPshift, end(x) - ChIPshift)
 		start(x) <- start
 		width(x) <- 1
 
